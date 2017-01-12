@@ -1,7 +1,7 @@
 <?php
 
 //Load includes
-include("lib/core/config.php");  /// This is where your API Key is stored
+require "lib/core/config.php";  /// This is where your API Key is stored
 
 $pageTitle = "INZU - News";
 
