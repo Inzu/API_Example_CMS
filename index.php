@@ -1,11 +1,11 @@
 <?php
 
+$pageTitle = "INZU - Home";	
+
 //Load includes
-require "lib/core/config.php";  /// This is where your API Key is stored
-
-$pageTitle = "INZU - Home";
-
-include("template/header.php"); /// Your site template header
+require("lib/core/functions.php"); 
+require("lib/core/config.php");  /// This is where your API Key and API Password is stored
+require("template/template_start.php"); /// Your site template start
 
 
 /*Page Content*/
@@ -14,8 +14,7 @@ include("template/header.php"); /// Your site template header
 
 
 //Request data from INZU for the "Home" section
-$json = file_get_contents("$api_base/cms/home?api_key={$api_key}");
-$inzu = json_decode($json); 
+$inzu = INZU_GET("/cms/home");
 
 echo<<<EOD
 <h2>Home</h2>
@@ -25,8 +24,7 @@ EOD;
 
 
 //Request data from INZU for the latest "Event" entry
-$json =  file_get_contents("$api_base/cms/events?api_key={$api_key}&latest=true");
-$inzu = json_decode($json); 
+$inzu = INZU_GET("/cms/events", array("latest"=>"true"));
 
 echo<<<EOD
 <div>
@@ -40,9 +38,7 @@ EOD;
 
 
 //Request data from INZU for the latest "video" entry
-$json =  file_get_contents("$api_base/cms/video?api_key={$api_key}&latest=true");
-$inzu = json_decode($json); 
-
+$inzu = INZU_GET("/cms/video", array("latest"=>"true"));
 
 echo<<<EOD
 <div>
@@ -54,6 +50,6 @@ EOD;
 
 
 
-include("template/footer.php"); /// Your site template footer
+include("template/template_end.php"); /// Your site template footer
 
 ?>

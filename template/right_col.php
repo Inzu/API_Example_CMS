@@ -2,13 +2,13 @@
 
 ///Default content for the right column
 
-$json =  file_get_contents("$api_base/cms/news?api_key={$api_key}&pagenum=1&rows_page=3&order=date&order_type=DESC");
-$inzu = json_decode($json); 
+$arguments = array("page"=>"1", "page_rows"=>"3", "order"=>"date", "order_type"=>"ASC");
+$inzu = INZU_GET("cms/news", $arguments);
 
 foreach ($inzu->data as $entry) { 
 
-$date=intval($entry->date);
-$date=date("M jS, Y",$date);
+$date = intval($entry->date);
+$date = date("M jS, Y",$date);
 
 $right_col.=<<<EOD
 <div>
@@ -31,9 +31,6 @@ $right_col=<<<EOD
 <hr/>
 $right_col
 EOD;
-
-
-
 
 
 ?>

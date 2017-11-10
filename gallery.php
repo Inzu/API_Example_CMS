@@ -1,16 +1,14 @@
 <?php
-
-
-//Load includes
-require "lib/core/config.php";  /// This is where your API Key is stored
-
+	
 $pageTitle = "INZU - Gallery";
 
-include("template/header.php"); /// Your site template header
+//Load includes
+require("lib/core/functions.php");
+require("lib/core/config.php");  /// This is where your API Key is stored
+require("template/template_start.php"); /// Your site template start
 
 
 /*Page Content*/
-
 
 //Get gallery ID if user has made a selection
 $entry_id = preg_replace("/[^0-9]/", "", @$_GET['id']);
@@ -18,21 +16,24 @@ $entry_id = preg_replace("/[^0-9]/", "", @$_GET['id']);
 //Get gallery image ID if user has selected an image otherwise set to zero
 $img_id = preg_replace("/[^0-9]/", "",@ $_GET['img_id']);
 
-if(!$img_id){$img_id=0;}
+if ( !$img_id ) $img_id = 0;
 
 
-//Request data from INZU for the 10 latest "Gallery" entries starting with the latest, ordered by date and in ascending order.
-$json = file_get_contents("$api_base/cms/gallery?api_key={$api_key}&pagenum=1&rows_page=100&order=date&order_type=ASC");
-$inzu = json_decode($json); 
+//Request data from INZU for the 10 latest "Gallery" entries ordered by date and in ascending order
+
+$arguments = array("page"=>"1", "page_rows"=>"10", "order"=>"date", "order_type"=>"ASC");
+$inzu = INZU_GET("cms/gallery", $arguments);
 
 
 ///We now begin a loop that sorts the results into either the archive list or to be displayed on the page
 
 $i=0;
-foreach ($inzu->data as $entry) { 
+
+foreach ( $inzu->data as $entry ) {
+	 
 $i++;
 
-if(($i==1&&!$entry_id)||($entry->entry_id==$entry_id)){ //Displays the first entry if an entry has not been selected from the archive
+if ( ( $i == 1 && !$entry_id ) || ( $entry->entry_id == $entry_id ) ) { //Displays the first entry if an entry has not been selected from the archive
 
 
 echo<<<EOD
@@ -47,18 +48,23 @@ echo<<<EOD
 EOD;
 
 //Add gallery thumbnails
+
 $im=0;
-foreach ($entry->image_list as $img ){
+
+foreach ($entry->image_list as $img ) {
+	
 echo<<<EOD
 <div class="mask" style="float:left;">
 <a href="gallery.php?entry_id={$entry->entry_id}&img_id={$im}"><img src="{$img->image_thumb}" border="0"/></a>
 </div>
 EOD;
+
 $im++;
+
 }
 
 
-}else{
+} else {
 
 //Create archive
 
@@ -79,7 +85,7 @@ $archive
 EOD;
 
 
-include("template/footer.php"); /// Your site template header
+require("template/template_end.php");
 
 
 

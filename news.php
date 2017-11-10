@@ -1,20 +1,25 @@
 <?php
 
-//Load includes
-require "lib/core/config.php";  /// This is where your API Key is stored
 
 $pageTitle = "INZU - News";
 
-include("template/header.php"); /// Your site template header
+//Load includes
+require("lib/core/functions.php");
+require("lib/core/config.php");  /// This is where your API Key is stored
+require("template/template_start.php"); /// Your site template start
 
 
 //Get ID from right column archive list if clicked
 $entry_id = preg_replace("/[^0-9]/", "", @$_GET['id']);
 
 
+/*Page Content*/
+
 //Request data from INZU for the 100 latest "News" entries, ordered by date and in ascending order.
-$json = file_get_contents("$api_base/cms/news?api_key={$api_key}&pagenum=1&rows_page=100&order=date&order_type=ASC");
-$inzu = json_decode($json); 
+
+$arguments = array("page"=>"1", "page_rows"=>"100", "order"=>"date", "order_type"=>"ASC");
+$inzu = INZU_GET("cms/news", $arguments);
+
 
 ///We now begin a loop that sorts the results into either the archive list or to be displayed on the page
 
@@ -36,7 +41,7 @@ echo<<<EOD
 {$entry->article}
 EOD;
 
-}else{
+} else {
 
 //Create archive
 
@@ -60,7 +65,7 @@ EOD;
 
 
 
-include("template/footer.php"); /// Your site template header
+require("template/template_end.php");
 
 
 ?>

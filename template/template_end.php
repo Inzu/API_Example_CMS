@@ -1,8 +1,6 @@
-<?php
-
-if(!$right_col){
-include("template/right_col.php"); /// Default right column
-}
+<?php 
+	
+if ( !$right_col ) include("template/right_col.php"); /// Default right column
 
 ?>
 

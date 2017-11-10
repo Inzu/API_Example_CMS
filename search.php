@@ -1,36 +1,35 @@
 <?php
 
-//Load includes
-require "lib/core/config.php";  /// This is where your API Key is stored
-
 $pageTitle = "INZU - Search";
 
-include("template/header.php"); /// Your site template header
-
+//Load includes
+require("lib/core/functions.php");
+require("lib/core/config.php");  /// This is where your API Key is stored
+require("template/template_start.php"); /// Your site template start
 
 /*Page Content*/
 
-$search=preg_replace("/[^a-zA-Z0-9[:blank:][:space:]]/", "", urldecode($_REQUEST['search']));
-$search_api=urlencode($search);
+$search = preg_replace("/[^a-zA-Z0-9[:blank:][:space:]]/", "", urldecode(@$_REQUEST['search']));
+$search_api = urlencode($search);
 
 //Results
-$json = file_get_contents("$api_base/functions/search?api_key={$api_key}&search=$search_api");
-$inzu = json_decode($json);
+
+$inzu = INZU_GET("functions/search", array("search"=>$search_api));
 
 
-foreach($inzu->data as $entry){
+foreach ( $inzu->data as $entry ) {
 
-	if($entry->zone == "about"){
+	if( $entry->zone == "about" ) {
 		
-	$link="about.php?";
+	$link = "about.php?";
 	
-	}else if($entry->zone == "articles"){
+	}else if( $entry->zone == "articles" ) {
 		
-	$link="articles.php?id=".$entry->entry_id;
+	$link = "articles.php?id=".$entry->entry_id;
 	
-	}else if($entry->zone == "news"){
+	}else if( $entry->zone == "news" ) {
 		
-	$link="news.php?id=".$entry->entry_id;
+	$link = "news.php?id=".$entry->entry_id;
 	
 	}
 
@@ -44,10 +43,7 @@ $results.=<<<EOD
 EOD;
 }
 
-if(!$results){
-$results="<p>Try using the phrase \"test\" to find a result.</p>";
-}
-
+if ( !$results ) $results = "<p>Try using the phrase \"test\" to find a result.</p>";
 
 echo<<<EOD
 <h2>Search results</h2>
@@ -55,6 +51,6 @@ echo<<<EOD
 EOD;
 
 
-include("template/footer.php"); /// Your site template header
+require("template/template_end.php");
 
 ?>

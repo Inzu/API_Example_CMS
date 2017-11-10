@@ -1,11 +1,12 @@
 <?php
 
-//Load includes
-require "lib/core/config.php";  /// This is where your API Key is stored
-
 $pageTitle = "INZU - Video";
 
-include("template/header.php"); /// Your site template header
+
+//Load includes
+require("lib/core/functions.php");
+require("lib/core/config.php");  /// This is where your API Key is stored
+require("template/template_start.php"); /// Your site template start
 
 
 /*Page Content*/
@@ -14,19 +15,20 @@ include("template/header.php"); /// Your site template header
 $entry_id = preg_replace("/[^0-9]/", "", @$_GET['id']);
 
 
-//Request data from INZU for the 10 latest "Video" entries starting with the latest, ordered by date and in ascending order.
-$json = file_get_contents("$api_base/cms/video?api_key={$api_key}&pagenum=1&rows_page=100&order=date&order_type=ASC");
-$inzu = json_decode($json); 
+//Request data from INZU for the 10 latest "Video" entries ordered by date and in ascending order
+$arguments = array("page"=>"1", "page_rows"=>"100", "order"=>"date", "order_type"=>"ASC");
+$inzu = INZU_GET("cms/video", $arguments);
 
 
 ///We now begin a loop that sorts the results into either the archive list or to be displayed on the page
 
 $i=0;
-foreach ($inzu->data as $entry) { 
+
+foreach ( $inzu->data as $entry ) { 
+	
 $i++;
 
-if(($i==1&&!$entry_id)||($entry->entry_id==$entry_id)){ //Displays the first entry if an entry has not been selected from the archive
-
+if( ( $i==1 && !$entry_id ) || ( $entry->entry_id == $entry_id ) ) { //Displays the first entry if an entry has not been selected from the archive
 
 echo<<<EOD
 <h2>Video</h2>
@@ -39,7 +41,7 @@ echo<<<EOD
 EOD;
 
 
-}else{
+} else {
 
 //Create archive
 
@@ -60,6 +62,6 @@ $archive
 EOD;
 
 
-include("template/footer.php"); /// Your site template header
+require("template/template_end.php");
 
 ?>

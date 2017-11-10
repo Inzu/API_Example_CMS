@@ -1,11 +1,11 @@
 <?php
 
-//Load includes
-require "lib/core/config.php";  /// This is where your API Key is stored
-
 $pageTitle = "INZU - Events";
 
-include("template/header.php"); /// Your site template header
+//Load includes
+require("lib/core/functions.php");
+require("lib/core/config.php");  /// This is where your API Key is stored
+require("template/template_start.php"); /// Your site template start
 
 
 /*Page Content*/
@@ -15,36 +15,40 @@ include("template/header.php"); /// Your site template header
 $entry_id = preg_replace("/[^0-9]/", "", @$_GET['id']);
 
 
+//Request data from INZU for the 20 latest "Event" entries ordered by date and in ascending order
 
-//Request data from INZU for the 20 latest "Event" entries starting with the latest, ordered by date and in ascending order.
-$json = file_get_contents("$api_base/cms/events?api_key={$api_key}&pagenum=1&rows_page=20&order=date&order_type=ASC");
-$inzu = json_decode($json); 
-
+$arguments = array("page"=>"1", "page_rows"=>"20", "order"=>"date", "order_type"=>"ASC");
+$inzu = INZU_GET("cms/events", $arguments);
 
 
 ///We now begin a loop that sorts the results into either the archive list or to be displayed on the page
 
 $i=0;
-foreach ($inzu->data as $entry) { 
+
+foreach ( $inzu->data as $entry ) { 
+	
 $i++;
 
 
 //Convert date from unix time to human readable
-$date=intval($entry->date);
-$date=date("M jS Y",$date);
+$date = intval($entry->date);
+$date = date("M jS Y",$date);
 
 
-if(($i==1&&!$entry_id)||($entry->entry_id==$entry_id)){ //Displays the first entry if an entry has not been selected from the archive
-
+if( ($i == 1 && !$entry_id ) || ( $entry->entry_id == $entry_id ) ) { //Displays the first entry if an entry has not been selected from the archive
 
 //Create booking link if there is one set and event is in the future
 
-$todays_date=date("U");
+$todays_date = date("U");
 
-if($entry->book!=''&& ($date+86400) > $todays_date){
-$book='<br/><a href='.$entry->book.' target="_blank" >Book tickets</a>';
-}else{
-$book=NULL;
+if ( $entry->book != '' && ($date+86400) > $todays_date ) {
+	
+$book = '<br/><a href="'.$entry->book.'" target="_blank" >Book tickets</a>';
+
+} else {
+	
+$book = NULL;
+
 }
 
 
@@ -60,43 +64,53 @@ echo<<<EOD
 EOD;
 
 
-if($entry->venue!=""){
+if ( $entry->venue != "" ) {
+	
 echo<<<EOD
 <h2>Venue</h2>
 <span class="main_body">{$entry->venue}</span>
 EOD;
-}
 
-if($entry->time!=""){
+}
+ 
+if ( $entry->time != "" ) {
+	
 echo<<<EOD
 <h2>Time</h2>
 <span class="main_body">{$entry->time}</span>
 EOD;
+
 }
 
-if($entry->fee!=""){
+if ( $entry->fee != "" ) {
+	
 echo<<<EOD
 <h2>Fee</h2>
 <span class="main_body">{$entry->fee}</span>
 EOD;
+
 }
 
-if($entry->location!=""){
+if ( $entry->location != "" ) {
+	
 echo<<<EOD
 <h2>Where</h2>
 <span class="main_body">{$entry->location}</span>
 EOD;
+
 }
 
-if($entry->review!=""){
+if ( $entry->review != "" ) {
+	
 echo<<<EOD
 <h2>Review</h2>
 <hr/><div class="main_body">{$entry->review}</div>
 EOD;
+
 }
 
 
-}else{
+} else {
 
 //Create archive
 
@@ -119,7 +133,7 @@ EOD;
 
 
 
-include("template/footer.php"); /// Your site template header
+require("template/template_end.php");
 
 
 ?>
