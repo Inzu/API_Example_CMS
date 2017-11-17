@@ -9,12 +9,11 @@ require("template/template_start.php"); /// Your site template start
 
 /*Page Content*/
 
-$search = preg_replace("/[^a-zA-Z0-9[:blank:][:space:]]/", "", urldecode(@$_REQUEST['search']));
-$search_api = urlencode($search);
+$search = preg_replace("/[^a-zA-Z0-9[:blank:][:space:]]/", "", @$_REQUEST['search']);
 
 //Results
 
-$inzu = INZU_GET("functions/search", array("search"=>$search_api));
+$inzu = INZU_GET("functions/search", array("search"=>$search));
 
 
 foreach ( $inzu->data as $entry ) {
