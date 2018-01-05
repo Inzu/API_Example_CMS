@@ -10,7 +10,7 @@ require("template/template_start.php"); /// Your site template start
 
 
 //Get ID from right column archive list if clicked
-$entry_id = preg_replace("/[^0-9]/", "", @$_GET['id']);
+$entry_id = preg_replace("/[^0-9]/", "", @$_GET['entry_id']);
 
 
 /*Page Content*/
