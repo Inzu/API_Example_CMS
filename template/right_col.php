@@ -15,7 +15,7 @@ $right_col.=<<<EOD
 <h4>{$entry->title}</h4>
 <img src="{$entry->image}" width="72" class="inzu_feed_image" />
 	<div  class="inzu_feed_text" >
-	<a href="/news.php?news_id={$entry->entry_id}" >{$entry->article}</a>
+	<a href="/news.php?entry_id={$entry->entry_id}" >{$entry->article}</a>
 	<br />
 	<span class="inzu_feed_textSmall" >{$date}</span>
 	</div>
