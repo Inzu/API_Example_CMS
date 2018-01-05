@@ -24,11 +24,11 @@ foreach ( $inzu->data as $entry ) {
 	
 	}else if( $entry->zone == "articles" ) {
 		
-	$link = "articles.php?id=".$entry->entry_id;
+	$link = "articles.php?entry_id=".$entry->entry_id;
 	
 	}else if( $entry->zone == "news" ) {
 		
-	$link = "news.php?id=".$entry->entry_id;
+	$link = "news.php?entry_id=".$entry->entry_id;
 	
 	}
 
