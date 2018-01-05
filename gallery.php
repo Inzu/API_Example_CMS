@@ -11,7 +11,7 @@ require("template/template_start.php"); /// Your site template start
 /*Page Content*/
 
 //Get gallery ID if user has made a selection
-$entry_id = preg_replace("/[^0-9]/", "", @$_GET['id']);
+$entry_id = preg_replace("/[^0-9]/", "", @$_GET['entry_id']);
 
 //Get gallery image ID if user has selected an image otherwise set to zero
 $img_id = preg_replace("/[^0-9]/", "",@ $_GET['img_id']);
@@ -70,7 +70,7 @@ $im++;
 
 $archive.=<<<EOD
 <div class="archive_row">
-<div class="archive_list" ><a  href="gallery.php?id={$entry->entry_id}">{$entry->title}</a></div>
+<div class="archive_list" ><a  href="gallery.php?entry_id={$entry->entry_id}">{$entry->title}</a></div>
 </div>
 EOD;
 
