@@ -12,7 +12,7 @@ require("template/template_start.php"); /// Your site template start
 
 
 //Get event ID if user has made a selection
-$entry_id = preg_replace("/[^0-9]/", "", @$_GET['id']);
+$entry_id = preg_replace("/[^0-9]/", "", @$_GET['entry_id']);
 
 
 //Request data from INZU for the 20 latest "Event" entries ordered by date and in ascending order
@@ -116,7 +116,7 @@ EOD;
 
 $archive.=<<<EOD
 <div class="archive_row">
-<div class="archive_list" ><a href="events.php?id={$entry->entry_id}">{$entry->title}</a> $date</div>
+<div class="archive_list" ><a href="events.php?entry_id={$entry->entry_id}">{$entry->title}</a> $date</div>
 </div>
 EOD;
 }
