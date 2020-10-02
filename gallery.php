@@ -1,39 +1,44 @@
 <?php
 	
-$pageTitle = "INZU - Gallery";
+	
+$pageTitle = "Inzu - Gallery";
 
-//Load includes
+
+// Load Includes
+
 require("lib/core/functions.php");
-require("lib/core/config.php");  /// This is where your API Key is stored
-require("template/template_start.php"); /// Your site template start
+require("lib/core/config.php");  // This is where your API Key is stored
+require("template/template_start.php"); // Your site template start
 
 
-/*Page Content*/
+// Get gallery ID if user has made a selection
 
-//Get gallery ID if user has made a selection
 $entry_id = preg_replace("/[^0-9]/", "", @$_GET['entry_id']);
 
-//Get gallery image ID if user has selected an image otherwise set to zero
+
+// Get gallery image ID if user has selected an image otherwise set to zero
+
 $img_id = preg_replace("/[^0-9]/", "",@ $_GET['img_id']);
+
 
 if ( !$img_id ) $img_id = 0;
 
 
-//Request data from INZU for the 10 latest "Gallery" entries ordered by date and in ascending order
+// Request data from Inzu for the 10 latest "Gallery" entries ordered by date and in ascending order
 
 $arguments = array("page"=>"1", "page_rows"=>"10", "order"=>"date", "order_type"=>"ASC");
 $inzu = INZU_GET("cms/gallery", $arguments);
 
 
-///We now begin a loop that sorts the results into either the archive list or to be displayed on the page
+// We now begin a loop that sorts the results into either the archive list or to be displayed on the page
 
-$i=0;
+$i = 0;
 
 foreach ( $inzu->data as $entry ) {
 	 
 $i++;
 
-if ( ( $i == 1 && !$entry_id ) || ( $entry->entry_id == $entry_id ) ) { //Displays the first entry if an entry has not been selected from the archive
+if ( ( $i == 1 && !$entry_id ) || ( $entry->entry_id == $entry_id ) ) { // Displays the first entry if an entry has not been selected from the archive
 
 
 echo<<<EOD
@@ -47,9 +52,10 @@ echo<<<EOD
 </div>
 EOD;
 
-//Add gallery thumbnails
 
-$im=0;
+// Add gallery thumbnails
+
+$im = 0;
 
 foreach ($entry->image_list as $img ) {
 	
@@ -66,13 +72,15 @@ $im++;
 
 } else {
 
-//Create archive
+
+// Create Archive
 
 $archive.=<<<EOD
 <div class="archive_row">
 <div class="archive_list" ><a  href="gallery.php?entry_id={$entry->entry_id}">{$entry->title}</a></div>
 </div>
 EOD;
+
 
 }
 
@@ -86,7 +94,6 @@ EOD;
 
 
 require("template/template_end.php");
-
 
 
 ?>

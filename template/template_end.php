@@ -1,6 +1,6 @@
 <?php 
 	
-if ( !$right_col ) include("template/right_col.php"); /// Default right column
+if ( !$right_col ) include("template/right_col.php"); // Default right column
 
 ?>
 
@@ -14,4 +14,3 @@ if ( !$right_col ) include("template/right_col.php"); /// Default right column
 
 </body>
 </html>
-

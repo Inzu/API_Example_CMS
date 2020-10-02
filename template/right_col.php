@@ -1,6 +1,6 @@
 <?php
 
-///Default content for the right column
+// Default content for the right column
 
 $arguments = array("page"=>"1", "page_rows"=>"3", "order"=>"date", "order_type"=>"ASC");
 $inzu = INZU_GET("cms/news", $arguments);

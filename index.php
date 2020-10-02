@@ -1,19 +1,20 @@
 <?php
 
-$pageTitle = "INZU - Home";	
 
-//Load includes
+$pageTitle = "Inzu - Home";	
+
+
+// Load Includes
+
 require("lib/core/functions.php"); 
-require("lib/core/config.php");  /// This is where your API Key and API Password is stored
-require("template/template_start.php"); /// Your site template start
+require("lib/core/config.php");  // This is where your API Key and API Password is stored
+require("template/template_start.php"); // Your site template start
 
 
-/*Page Content*/
+// We will now select a series of data feeds from Inzu, these can be mixed and matched in any combination
 
-//We will now select a series of data feeds from Inzu, these can be mixed and matched in any combination
+// Request data from Inzu for the "Home" section
 
-
-//Request data from INZU for the "Home" section
 $inzu = INZU_GET("/cms/home");
 
 echo<<<EOD
@@ -23,8 +24,10 @@ EOD;
 
 
 
-//Request data from INZU for the latest "Event" entry
+// Request data from Inzu for the latest "Event" entry
+
 $inzu = INZU_GET("/cms/events", array("latest"=>"true"));
+
 
 echo<<<EOD
 <div>
@@ -37,7 +40,8 @@ EOD;
 
 
 
-//Request data from INZU for the latest "video" entry
+// Request data from Inzu for the latest "video" entry
+
 $inzu = INZU_GET("/cms/video", array("latest"=>"true"));
 
 echo<<<EOD
@@ -49,7 +53,6 @@ echo<<<EOD
 EOD;
 
 
-
-include("template/template_end.php"); /// Your site template footer
+include("template/template_end.php"); // Your site template footer
 
 ?>
