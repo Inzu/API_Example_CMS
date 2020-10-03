@@ -1,4 +1,3 @@
-
 /*
 \---------------------------------------------------------------------------/
 | Inzu API                                                                  |
@@ -24,7 +23,6 @@
 */
 
 
-
 FOREWORD
 
 The purpose of this code is to demonstrate how to setup a basic site that connects to the Inzu CMS. Note this example does not use the site map for the navigation.
@@ -44,6 +42,3 @@ Change the code in these files to suit your design needs.
 
 
 For more information on the Inzu API and to reference every API feed please visit http://developers.inzu.net or contact support@inzu.net.
-
-
-

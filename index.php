@@ -1,8 +1,6 @@
 <?php
 
-
-$pageTitle = "Inzu - Home";	
-
+$pageTitle = "Inzu - Home";
 
 // Load Includes
 
@@ -10,8 +8,7 @@ require("lib/core/functions.php");
 require("lib/core/config.php");  // This is where your API Key and API Password is stored
 require("template/template_start.php"); // Your site template start
 
-
-// We will now select a series of data feeds from Inzu, these can be mixed and matched in any combination
+// Select a series of data feeds from the Inzu API
 
 // Request data from Inzu for the "Home" section
 
@@ -22,12 +19,9 @@ echo<<<EOD
 <hr/><p class="article" >{$inzu->data[0]->entry}</p>
 EOD;
 
-
-
 // Request data from Inzu for the latest "Event" entry
 
 $inzu = INZU_GET("/cms/events", array("latest"=>"true"));
-
 
 echo<<<EOD
 <div>
@@ -37,8 +31,6 @@ echo<<<EOD
 <hr/>
 </div>
 EOD;
-
-
 
 // Request data from Inzu for the latest "video" entry
 
@@ -51,7 +43,6 @@ echo<<<EOD
 <hr/><span class="main_body">{$inzu->data[0]->description}</span>
 <hr/></div>
 EOD;
-
 
 include("template/template_end.php"); // Your site template footer
 

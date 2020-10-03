@@ -25,12 +25,10 @@ EOD;
 
 }
 
-
 $right_col=<<<EOD
 <h1>NEWS</h1>
 <hr/>
 $right_col
 EOD;
-
 
 ?>

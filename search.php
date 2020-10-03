@@ -1,8 +1,6 @@
 <?php
 
-
 $pageTitle = "Inzu - Search";
-
 
 // Load Includes
 
@@ -10,13 +8,13 @@ require("lib/core/functions.php");
 require("lib/core/config.php");  // This is where your API Key is stored
 require("template/template_start.php"); // Your site template start
 
+// Inputs
 
 $search = preg_replace("/[^a-zA-Z0-9[:blank:][:space:]]/", "", @$_REQUEST['search']);
 
 // Results
 
 $inzu = INZU_GET("functions/search", array("search"=>$search));
-
 
 foreach ( $inzu->data as $entry ) {
 
@@ -52,8 +50,6 @@ echo<<<EOD
 <hr/>$results
 EOD;
 
-
 require("template/template_end.php");
-
 
 ?>
