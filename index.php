@@ -12,7 +12,7 @@ require("template/template_start.php"); // Your site template start
 
 // Request data from Inzu for the "Home" section
 
-$inzu = INZU_GET("/cms/home");
+$inzu = INZU_GET("cms/home");
 
 echo<<<EOD
 <h2>Home</h2>
@@ -21,7 +21,7 @@ EOD;
 
 // Request data from Inzu for the latest "Event" entry
 
-$inzu = INZU_GET("/cms/events", array("latest"=>"true"));
+$inzu = INZU_GET("cms/events", array("latest"=>"true"));
 
 echo<<<EOD
 <div>
@@ -34,7 +34,7 @@ EOD;
 
 // Request data from Inzu for the latest "video" entry
 
-$inzu = INZU_GET("/cms/video", array("latest"=>"true"));
+$inzu = INZU_GET("cms/video", array("latest"=>"true"));
 
 echo<<<EOD
 <div>
