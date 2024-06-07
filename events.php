@@ -28,15 +28,15 @@ $i++;
 // Convert date from unix time to human readable
 
 $date = intval($entry->date);
-$date = date("M jS Y",$date);
+$date = date("M jS Y", $date);
 
-if( ($i == 1 && !$entry_id ) || ( $entry->entry_id == $entry_id ) ) { // Displays the first entry if an entry has not been selected from the archive
+if ( ($i == 1 && !$entry_id ) || ( $entry->entry_id == $entry_id ) ) { // Displays the first entry if an entry has not been selected from the archive
 
 // Create booking link if there is one set and event is in the future
 
 $todays_date = date("U");
 
-if ( $entry->book != '' && ($date+86400) > $todays_date ) {
+if ( $entry->book != '' && ( intval($entry->date) + 86400) > $todays_date ) {
 	
 	$book = '<br/><a href="'.$entry->book.'" target="_blank" >Book tickets</a>';
 
